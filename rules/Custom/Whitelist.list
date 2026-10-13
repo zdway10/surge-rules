@@ -6,3 +6,6 @@
 DOMAIN-SUFFIX,openxlab.org.cn
 # CodeBuddy（腾讯产品，服务器在新加坡但腾讯 ASN 判为直连）
 DOMAIN-SUFFIX,codebuddy.ai
+# 国内 AI 修正：原漏到台湾节点，按「国内 AI 保持直连」原则改直连
+DOMAIN-SUFFIX,qwen.ai
+DOMAIN-SUFFIX,01.ai
