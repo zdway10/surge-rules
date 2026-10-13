@@ -9,3 +9,9 @@ DOMAIN-SUFFIX,codebuddy.ai
 # 国内 AI 修正：原漏到台湾节点，按「国内 AI 保持直连」原则改直连
 DOMAIN-SUFFIX,qwen.ai
 DOMAIN-SUFFIX,01.ai
+# 国内厂商国际站：原误归 AI Services，改直连
+DOMAIN-SUFFIX,klingai.com
+DOMAIN-SUFFIX,minimax.io
+DOMAIN-SUFFIX,hailuoai.video
+DOMAIN-SUFFIX,monica.im
+DOMAIN-SUFFIX,sider.ai

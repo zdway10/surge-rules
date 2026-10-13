@@ -80,8 +80,6 @@ DOMAIN-KEYWORD,bedrock-runtime
 DOMAIN-SUFFIX,copilot.cloud.microsoft
 
 # --- AI 工具与服务（2026-10-13 补，原漏到台湾）---
-DOMAIN-SUFFIX,sider.ai
-DOMAIN-SUFFIX,monica.im
 DOMAIN-SUFFIX,phind.com
 DOMAIN-SUFFIX,you.com
 DOMAIN-SUFFIX,pi.ai
@@ -110,15 +108,12 @@ DOMAIN-SUFFIX,lumalabs.ai
 DOMAIN-SUFFIX,ideogram.ai
 DOMAIN-SUFFIX,leonardo.ai
 DOMAIN-SUFFIX,civitai.com
-DOMAIN-SUFFIX,hailuoai.video
 DOMAIN-SUFFIX,murf.ai
 DOMAIN-SUFFIX,play.ht
 DOMAIN-SUFFIX,resemble.ai
 DOMAIN-SUFFIX,openwebui.com
 
-# --- 边界类：写作助手 / 通用 SaaS / 国内厂商国际站 ---
+# --- 边界类：写作助手 / 通用 SaaS ---
 DOMAIN-SUFFIX,grammarly.com
 DOMAIN-SUFFIX,quillbot.com
 DOMAIN-SUFFIX,notion.so
-DOMAIN-SUFFIX,minimax.io
-DOMAIN-SUFFIX,klingai.com
