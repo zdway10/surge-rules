@@ -1,0 +1,67 @@
+# NAME: Custom AI Services
+# DESC: 上游规则集未收录、需手工维护的 AI 服务域名
+# NOTE: 手工维护，不参与每日自动同步（不在 list.txt / extra.txt 中）
+
+# --- Apple Intelligence ---
+DOMAIN-SUFFIX,apple-relay.apple.com
+DOMAIN-SUFFIX,apple-relay.cloudflare.com
+DOMAIN-KEYWORD,apple-relay
+
+# --- OpenAI 补充 ---
+DOMAIN-SUFFIX,sora.com
+DOMAIN-SUFFIX,chatgpt.site
+DOMAIN-SUFFIX,crixet.com
+
+# --- xAI / Grok ---
+DOMAIN-SUFFIX,x.ai
+
+# --- Claude 补充（Claude Code CLI OAuth 登录等）---
+DOMAIN-SUFFIX,claude.com
+DOMAIN-SUFFIX,claudeusercontent.com
+DOMAIN-SUFFIX,claude.app
+DOMAIN-KEYWORD,claude
+DOMAIN-KEYWORD,anthropic
+
+# --- Google Gemini 补充 ---
+DOMAIN-SUFFIX,gemini.gstatic.com
+DOMAIN-SUFFIX,aistudio.google.com
+DOMAIN-SUFFIX,gemini.google
+DOMAIN-SUFFIX,notebooklm.google.com
+DOMAIN-SUFFIX,labs.google
+# Gemini App 后端（修复「所在地区不支持 / IP A≠B」）
+DOMAIN-SUFFIX,alkalimakersuite-pa.googleapis.com
+DOMAIN-SUFFIX,alkalicore-pa.clients6.google.com
+DOMAIN-SUFFIX,geller-pa.googleapis.com
+DOMAIN-SUFFIX,robinfrontend-pa.googleapis.com
+
+# --- Microsoft Copilot ---
+DOMAIN-SUFFIX,copilot.microsoft.com
+
+# --- 其它 AI 服务 ---
+DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-SUFFIX,mistral.ai
+DOMAIN-SUFFIX,groq.com
+DOMAIN-SUFFIX,huggingface.co
+DOMAIN-SUFFIX,hf.co
+DOMAIN-SUFFIX,poe.com
+DOMAIN-SUFFIX,character.ai
+DOMAIN-SUFFIX,midjourney.com
+DOMAIN-SUFFIX,together.ai
+DOMAIN-SUFFIX,together.xyz
+DOMAIN-SUFFIX,openrouter.ai
+DOMAIN-SUFFIX,suno.com
+DOMAIN-SUFFIX,suno.ai
+DOMAIN-SUFFIX,runwayml.com
+DOMAIN-SUFFIX,elevenlabs.io
+DOMAIN-SUFFIX,lmarena.ai
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,trae.ai
+DOMAIN-SUFFIX,manus.im
+DOMAIN-SUFFIX,antigravity.google
+DOMAIN-SUFFIX,cohere.com
+DOMAIN-SUFFIX,cohere.ai
+DOMAIN-SUFFIX,stability.ai
+DOMAIN-SUFFIX,replicate.com
+DOMAIN-SUFFIX,deepinfra.com
+DOMAIN-SUFFIX,fireworks.ai

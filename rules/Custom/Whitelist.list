@@ -1,0 +1,8 @@
+# NAME: Custom Whitelist
+# DESC: 需强制直连、且必须先于广告拦截生效的白名单域名
+# NOTE: 手工维护，不参与每日自动同步
+
+# OpenXLab（AdvertisingLite 的 openx 关键词误伤）
+DOMAIN-SUFFIX,openxlab.org.cn
+# CodeBuddy（腾讯产品，服务器在新加坡但腾讯 ASN 判为直连）
+DOMAIN-SUFFIX,codebuddy.ai
