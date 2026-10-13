@@ -1,0 +1,4 @@
+# 非 blackmatrix7 来源的规则集
+# 格式：<保存路径>  <完整 URL>
+# 保存路径相对于 rules/ 目录
+Unbreak/Unbreak.list  https://raw.githubusercontent.com/zxfccmm4/Profiles/main/Surge/Ruleset/Unbreak.list

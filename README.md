@@ -11,10 +11,18 @@
 ## 目录结构
 
 ```
-list.txt                        # 需要同步的 85 个规则集路径
+list.txt                        # 需要同步的 85 个 blackmatrix7 规则集路径
+extra.txt                       # 其它来源的规则集（路径 + 完整 URL）
 rules/                          # 规则集本体（由 Actions 自动更新）
 .github/workflows/sync.yml      # 每天自动同步的流水线
 ```
+
+## 数据来源
+
+| 来源 | 数量 | 说明 |
+|---|---|---|
+| [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) | 85 | 见 `list.txt`，每 2 天更新 |
+| [zxfccmm4/Profiles](https://github.com/zxfccmm4/Profiles) | 1 | `Unbreak.list`，见 `extra.txt`（该仓库 2024-12 后未再更新） |
 
 ## 自动更新
 
@@ -46,4 +54,5 @@ https://raw.githubusercontent.com/<你的用户名>/surge-rules/main/rules/Claud
 
 - 仓库**必须是公开（public）**的。`raw.githubusercontent.com` 不服务私有仓库，Surge 拉不到。
 - 如果上游改了文件名或删了某个规则集，Actions 会下载失败并打 `warning`，但**不会**删掉本地已有的文件（保持最后一次成功的版本）。
-- 如果某天失败数量超过 10 个，Actions 会**中止本次提交**，避免把一份残缺的镜像推上来。
+- blackmatrix7 失败超过 10 个、或 `extra.txt` 里任一来源失败，Actions 会**中止本次提交**，避免把残缺镜像推上来。
+- 想增删规则集：改 `list.txt`（blackmatrix7）或 `extra.txt`（其它来源），push 后 Actions 会自动处理。
