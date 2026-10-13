@@ -1,0 +1,61 @@
+name: Sync Surge rule sets
+
+# 触发方式：
+#   1. 定时 —— 每天 UTC 19:00（北京时间 03:00）自动跑一次
+#   2. 手动 —— 在 GitHub 网页上点 "Run workflow"
+#   3. 推送 —— 每次你 push 到 main 分支也会跑一次
+on:
+  schedule:
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+# 需要写权限才能把更新提交回仓库
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 从上游下载规则集
+        run: |
+          set -e
+          BASE="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge"
+          fail=0
+          mkdir -p rules
+          while IFS= read -r p; do
+            [ -z "$p" ] && continue
+            case "$p" in \#*) continue ;; esac
+            mkdir -p "rules/$(dirname "$p")"
+            code=$(curl -sS -L --retry 3 --retry-delay 2 --max-time 60 \
+                   -o "rules/$p" -w "%{http_code}" "$BASE/$p")
+            printf "  %s  %s\n" "$code" "$p"
+            if [ "$code" != "200" ]; then
+              echo "::warning::下载失败 $p (HTTP $code)"
+              fail=$((fail+1))
+            fi
+          done < list.txt
+          echo "-----------------------------------------"
+          echo "下载完成，失败 $fail 个"
+          if [ "$fail" -gt 10 ]; then
+            echo "::error::失败数量过多，可能上游异常，本次不提交"
+            exit 1
+          fi
+
+      - name: 提交更新
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A rules
+          if git diff --cached --quiet; then
+            echo "规则没有变化，跳过提交"
+          else
+            git commit -m "sync rules $(date -u +%Y-%m-%d)"
+            git push
+            echo "已提交更新"
+          fi
