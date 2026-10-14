@@ -32,13 +32,17 @@ jobs:
             [ -z "$p" ] && continue
             case "$p" in \#*) continue ;; esac
             mkdir -p "rules/$(dirname "$p")"
+            tmp="rules/$p.tmp"
             code=$(curl -sS -L --retry 3 --retry-delay 2 --max-time 60 \
-                   -o "rules/$p" -w "%{http_code}" "$BASE/$p")
-            printf "  %s  %s\n" "$code" "$p"
-            if [ "$code" != "200" ]; then
-              echo "::warning::下载失败 $p (HTTP $code)"
+                   -o "$tmp" -w "%{http_code}" "$BASE/$p")
+            if [ "$code" = "200" ]; then
+              mv "$tmp" "rules/$p"   # 只有成功才替换，失败时旧文件原样保留
+            else
+              rm -f "$tmp"           # 丢弃错误页/半截文件，绝不污染规则文件
+              echo "::warning::下载失败 $p (HTTP $code)，保留旧文件"
               fail=$((fail+1))
             fi
+            printf "  %s  %s\n" "$code" "$p"
           done < list.txt
           echo "-----------------------------------------"
           echo "blackmatrix7 下载完成，失败 $fail 个"
@@ -56,13 +60,17 @@ jobs:
             case "$dest" in \#*) continue ;; esac
             [ -z "$url" ] && continue
             mkdir -p "rules/$(dirname "$dest")"
+            tmp="rules/$dest.tmp"
             code=$(curl -sS -L --retry 3 --retry-delay 2 --max-time 60 \
-                   -o "rules/$dest" -w "%{http_code}" "$url")
-            printf "  %s  %s\n" "$code" "$dest"
-            if [ "$code" != "200" ]; then
-              echo "::warning::下载失败 $dest (HTTP $code)"
+                   -o "$tmp" -w "%{http_code}" "$url")
+            if [ "$code" = "200" ]; then
+              mv "$tmp" "rules/$dest"   # 只有成功才替换，失败时旧文件原样保留
+            else
+              rm -f "$tmp"              # 丢弃错误页/半截文件，绝不污染规则文件
+              echo "::warning::下载失败 $dest (HTTP $code)，保留旧文件"
               fail=$((fail+1))
             fi
+            printf "  %s  %s\n" "$code" "$dest"
           done < extra.txt
           echo "-----------------------------------------"
           echo "其它来源下载完成，失败 $fail 个"
@@ -75,11 +83,24 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 清理可能残留的临时文件，避免被误提交
+          find rules -name '*.tmp' -type f -delete
           git add -A rules
           if git diff --cached --quiet; then
             echo "规则没有变化，跳过提交"
-          else
-            git commit -m "sync rules $(date -u +%Y-%m-%d)"
-            git push
-            echo "已提交更新"
+            exit 0
           fi
+          git commit -m "sync rules $(date -u +%Y-%m-%d)"
+          # push 可能与本仓库的其它提交撞车；失败则 rebase 后重试
+          branch="${GITHUB_REF_NAME:-main}"
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "已提交更新"
+              exit 0
+            fi
+            echo "::warning::push 失败（第 $attempt 次），rebase 后重试"
+            git pull --rebase --autostash origin "$branch" || true
+            sleep 5
+          done
+          echo "::error::多次重试后仍无法 push"
+          exit 1
