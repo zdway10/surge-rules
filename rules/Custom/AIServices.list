@@ -117,3 +117,14 @@ DOMAIN-SUFFIX,openwebui.com
 DOMAIN-SUFFIX,grammarly.com
 DOMAIN-SUFFIX,quillbot.com
 DOMAIN-SUFFIX,notion.so
+
+# --- Anthropic / Claude 补充（2026-10-13 补，原漏到台湾）---
+DOMAIN-SUFFIX,clau.de
+DOMAIN-SUFFIX,modelcontextprotocol.io
+DOMAIN-SUFFIX,cdn.growthbook.io
+
+# --- Anthropic IP 段（防封第二层保险）---
+# 域名规则之外，直接按 IP 兜住：即使 Claude 换新域名或 App 直连 IP 也不漏
+# whois 核实：160.79.104.0/21 整段为 Anthropic, PBC (AP-2440)；IPv6 段为 ANTHROPIC-V6
+IP-CIDR,160.79.104.0/21,no-resolve
+IP-CIDR6,2607:6bc0::/48,no-resolve
