@@ -2,6 +2,5 @@
 # 格式：<保存路径>  <完整 URL>
 # 保存路径相对于 rules/ 目录
 Unbreak/Unbreak.list  https://raw.githubusercontent.com/zxfccmm4/Profiles/main/Surge/Ruleset/Unbreak.list
-# hagezi DNS-Blocklists（27.4k star）—— 广告/追踪/恶意综合 + 威胁情报
-AdBlock/hagezi-pro-onlydomains.txt  https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/pro-onlydomains.txt
-Security/hagezi-tif-mini-onlydomains.txt  https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/tif.mini-onlydomains.txt
+# 217heidai 去广告合并规则（专为 Surge，含 AdGuard/EasyList/OISD/StevenBlack/hagezi PRO）
+AdBlock/217heidai-adblock.list  https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblocksurge.list
